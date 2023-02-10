@@ -1,10 +1,12 @@
 import React from "react";
+import Header from "../components/Header";
 
 const MyAccount = () => {
   return (
-    <div>
+    <>
+      <Header />
       <h1>My Account</h1>
-    </div>
+    </>
   );
 };
 
