@@ -89,9 +89,9 @@ function Header(props) {
       onClose={handleProfileMenuClose}
     >
       <MenuItem onClick={() => navigate("/myaccount")}>Profile</MenuItem>
-      {(isLoggedIn && (
-        <MenuItem onClick={console.log("Logout")}>Logout</MenuItem>
-      )) || <MenuItem onClick={() => navigate("/login")}>Login</MenuItem>}
+      {(isLoggedIn && <MenuItem>Logout</MenuItem>) || (
+        <MenuItem onClick={() => navigate("/login")}>Login</MenuItem>
+      )}
     </Menu>
   );
 
