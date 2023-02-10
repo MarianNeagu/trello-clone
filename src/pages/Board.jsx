@@ -1,10 +1,12 @@
 import React from "react";
+import Header from "../components/Header";
 
 const Board = () => {
   return (
-    <div>
+    <>
+      <Header />
       <h1>Board</h1>
-    </div>
+    </>
   );
 };
 
