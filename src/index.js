@@ -4,6 +4,7 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import "./fonts/Helvetica-Rounded-Bold.otf";
+import "./fonts/Helvetica.ttf";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
