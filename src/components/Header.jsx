@@ -18,9 +18,8 @@ import { useState } from "react";
 import { Menu } from "@mui/material";
 import { MenuItem } from "@mui/material";
 
-const drawerWidth = 240;
-
-function Header(props) {
+const Header = (props) => {
+  const drawerWidth = 240;
   const { window } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState();
@@ -113,7 +112,6 @@ function Header(props) {
                 style={{
                   textDecoration: "none",
                   color: "white",
-                  fontFamily: "Helvetica Rounded",
                 }}
                 to="/"
               >
@@ -130,6 +128,16 @@ function Header(props) {
               >
                 <HomeIcon sx={{ color: "white" }} />
               </IconButton>
+
+              <IconButton
+                sx={{ marginRight: 2 }}
+                onClick={() => {
+                  navigate("/test");
+                }}
+              >
+                <HomeIcon sx={{ color: "red" }} />
+              </IconButton>
+
               <IconButton
                 sx={{ marginRight: 2 }}
                 onClick={() => {
@@ -185,6 +193,6 @@ function Header(props) {
       </Box>
     </>
   );
-}
+};
 
 export default Header;

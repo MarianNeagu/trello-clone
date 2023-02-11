@@ -17,3 +17,8 @@ code {
   src: local("Helvetica Rounded"),
     url("./fonts/Helvetica-Rounded-Bold.otf") format("truetype");
 }
+
+@font-face {
+  font-family: "Helvetica";
+  src: local("Helvetica"), url("./fonts/Helvetica.ttf") format("truetype");
+}
