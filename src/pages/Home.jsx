@@ -53,10 +53,6 @@ const Home = () => {
         userId: "test",
       },
     ]);
-
-    if (!cookies.user) {
-      navigate("/login");
-    }
   }, []);
 
   if (!boards) return <LoadingScreen />;
