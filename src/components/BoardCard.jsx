@@ -5,6 +5,7 @@ import CardActions from "@mui/material/CardActions";
 import styled from "styled-components";
 import { CardActionArea, Typography } from "@mui/material";
 import StarBorderRoundedIcon from "@mui/icons-material/StarBorderRounded";
+import StarRateRoundedIcon from "@mui/icons-material/StarRateRounded";
 import IconButton from "@mui/material/IconButton";
 
 const StyledTypography = styled(Typography)`
@@ -20,7 +21,11 @@ const BoardCard = ({ title, isStarred }) => {
       </CardContent>
       <CardActions disableSpacing>
         <IconButton aria-label="add to favorites">
-          <StarBorderRoundedIcon />
+          {isStarred ? (
+            <StarRateRoundedIcon sx={{ color: "#ffa600" }} />
+          ) : (
+            <StarBorderRoundedIcon />
+          )}
         </IconButton>
       </CardActions>
     </Card>

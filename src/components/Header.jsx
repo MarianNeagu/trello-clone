@@ -161,7 +161,7 @@ const Header = ({ window, showHome, showMyBoards, showProfile }) => {
                 <IconButton
                   sx={{ marginRight: 2 }}
                   onClick={() => {
-                    navigate("/board/" + 1);
+                    navigate("/myboards/");
                   }}
                 >
                   <DashboardIcon sx={{ color: "white" }} />

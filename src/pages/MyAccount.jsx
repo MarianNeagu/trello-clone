@@ -1,7 +1,7 @@
 import React from "react";
 import Header from "../components/Header";
 
-const MyAccount = () => {
+const Favorites = () => {
   return (
     <>
       <Header showHome={true} showMyBoards={true} showProfile={true} />
@@ -10,4 +10,4 @@ const MyAccount = () => {
   );
 };
 
-export default MyAccount;
+export default Favorites;

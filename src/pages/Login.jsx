@@ -58,7 +58,7 @@ const Login = () => {
 
   return (
     <>
-      <Header showHome={false} showMyBoards={false} showProfile={true} />
+      <Header showHome={false} showMyBoards={false} showProfile={false} />
 
       <Root>
         <FormContainer>
