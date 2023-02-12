@@ -8,6 +8,7 @@ import { TextField, Grid } from "@material-ui/core";
 import styled from "styled-components";
 import { Typography } from "@mui/material";
 import Button from "@mui/material/Button";
+import { useCookies } from "react-cookie";
 
 const Root = styled.div`
   height: 80vh;
@@ -28,6 +29,7 @@ const Login = () => {
     email: "",
     password: "",
   });
+  const [cookies, setCookie] = useCookies(["user"]);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.id]: e.target.value });
@@ -40,6 +42,12 @@ const Login = () => {
         const user = userCredential.user;
         navigate("/");
         console.log(user);
+        setCookie(
+          "user",
+          { name: user.displayName, email: user.email, id: user.uid },
+          { path: "/" },
+          { maxAge: 3600 * 24 * 7 }
+        );
       })
       .catch((error) => {
         const errorCode = error.code;
@@ -50,7 +58,7 @@ const Login = () => {
 
   return (
     <>
-      <Header />
+      <Header showHome={false} showMyBoards={false} showProfile={true} />
 
       <Root>
         <FormContainer>

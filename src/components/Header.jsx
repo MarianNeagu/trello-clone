@@ -1,4 +1,5 @@
 import * as React from "react";
+import { useEffect } from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -17,13 +18,15 @@ import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import { useState } from "react";
 import { Menu } from "@mui/material";
 import { MenuItem } from "@mui/material";
+import { useCookies } from "react-cookie";
 
-const Header = (props) => {
+const Header = ({ window, showHome, showMyBoards, showProfile }) => {
   const drawerWidth = 240;
-  const { window } = props;
+  const _window = window;
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState();
   const [anchorEl, setAnchorEl] = React.useState(null);
+  const [cookies, setCookie, removeCookie] = useCookies(["user"]);
   const isMenuOpen = Boolean(anchorEl);
 
   let navigate = useNavigate();
@@ -40,6 +43,10 @@ const Header = (props) => {
     setAnchorEl(null);
   };
 
+  useEffect(() => {
+    setIsLoggedIn(cookies.user ? true : false);
+  }, [cookies.user]);
+
   const drawer = (
     <Box onClick={handleDrawerToggle} sx={{ textAlign: "center" }}>
       <Typography
@@ -50,24 +57,32 @@ const Header = (props) => {
       </Typography>
       <Divider />
       <List>
-        <ListItem key="Home" disablePadding>
-          <IconButton>
-            <HomeIcon />
-            <Typography marginLeft={3}>Home</Typography>
-          </IconButton>
-        </ListItem>
-        <ListItem key="MyBoards" disablePadding>
-          <IconButton>
-            <DashboardIcon />
-            <Typography marginLeft={3}>My Boards</Typography>
-          </IconButton>
-        </ListItem>
-        <ListItem key="MyAccount" disablePadding>
-          <IconButton>
-            <AccountCircleIcon />
-            <Typography marginLeft={3}>My account</Typography>
-          </IconButton>
-        </ListItem>
+        {showHome && (
+          <ListItem key="Home" disablePadding>
+            <IconButton>
+              <HomeIcon />
+              <Typography marginLeft={3}>Home</Typography>
+            </IconButton>
+          </ListItem>
+        )}
+
+        {showMyBoards && (
+          <ListItem key="MyBoards" disablePadding>
+            <IconButton>
+              <DashboardIcon />
+              <Typography marginLeft={3}>My Boards</Typography>
+            </IconButton>
+          </ListItem>
+        )}
+
+        {showProfile && isLoggedIn && (
+          <ListItem key="MyAccount" disablePadding>
+            <IconButton>
+              <AccountCircleIcon />
+              <Typography marginLeft={3}>My account</Typography>
+            </IconButton>
+          </ListItem>
+        )}
       </List>
     </Box>
   );
@@ -87,15 +102,24 @@ const Header = (props) => {
       open={isMenuOpen}
       onClose={handleProfileMenuClose}
     >
-      <MenuItem onClick={() => navigate("/myaccount")}>Profile</MenuItem>
-      {(isLoggedIn && <MenuItem>Logout</MenuItem>) || (
-        <MenuItem onClick={() => navigate("/login")}>Login</MenuItem>
+      {isLoggedIn && (
+        <MenuItem onClick={() => navigate("/myaccount")}>Profile</MenuItem>
       )}
+
+      {(isLoggedIn && (
+        <MenuItem
+          onClick={() => {
+            removeCookie("user");
+          }}
+        >
+          Logout
+        </MenuItem>
+      )) || <MenuItem onClick={() => navigate("/login")}>Login</MenuItem>}
     </Menu>
   );
 
   const container =
-    window !== undefined ? () => window().document.body : undefined;
+    _window !== undefined ? () => window().document.body : undefined;
 
   return (
     <>
@@ -120,40 +144,38 @@ const Header = (props) => {
             </Typography>
 
             <Box sx={{ display: { xs: "none", sm: "block" } }}>
-              <IconButton
-                sx={{ marginRight: 2 }}
-                onClick={() => {
-                  navigate("/");
-                }}
-              >
-                <HomeIcon sx={{ color: "white" }} />
-              </IconButton>
+              {showHome && (
+                <IconButton
+                  sx={{ marginRight: 2 }}
+                  onClick={() => {
+                    navigate("/");
+                  }}
+                >
+                  <HomeIcon sx={{ color: "white" }} />
+                </IconButton>
+              )}
 
-              <IconButton
-                sx={{ marginRight: 2 }}
-                onClick={() => {
-                  navigate("/test");
-                }}
-              >
-                <HomeIcon sx={{ color: "red" }} />
-              </IconButton>
+              {showMyBoards && (
+                <IconButton
+                  sx={{ marginRight: 2 }}
+                  onClick={() => {
+                    navigate("/board/" + 1);
+                  }}
+                >
+                  <DashboardIcon sx={{ color: "white" }} />
+                </IconButton>
+              )}
 
-              <IconButton
-                sx={{ marginRight: 2 }}
-                onClick={() => {
-                  navigate("/board/" + 1);
-                }}
-              >
-                <DashboardIcon sx={{ color: "white" }} />
-              </IconButton>
-              <IconButton
-                onClick={handleProfileMenuOpen}
-                aria-controls={isMenuOpen ? "account-menu" : undefined}
-                aria-haspopup="true"
-                aria-expanded={isMenuOpen ? "true" : undefined}
-              >
-                <AccountCircleIcon sx={{ color: "white" }} />
-              </IconButton>
+              {showProfile && (
+                <IconButton
+                  onClick={handleProfileMenuOpen}
+                  aria-controls={isMenuOpen ? "account-menu" : undefined}
+                  aria-haspopup="true"
+                  aria-expanded={isMenuOpen ? "true" : undefined}
+                >
+                  <AccountCircleIcon sx={{ color: "white" }} />
+                </IconButton>
+              )}
             </Box>
             <IconButton
               color="inherit"
