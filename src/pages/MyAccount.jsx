@@ -4,7 +4,7 @@ import Header from "../components/Header";
 const MyAccount = () => {
   return (
     <>
-      <Header />
+      <Header showHome={true} showMyBoards={true} showProfile={true} />
       <h1>My Account</h1>
     </>
   );
