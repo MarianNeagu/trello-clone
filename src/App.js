@@ -5,9 +5,11 @@ import Board from "./pages/Board";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import Test from "./pages/Test";
+import Signup from "./pages/Signup";
 
 const App = () => {
   return (
+
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Home />} />
@@ -19,6 +21,7 @@ const App = () => {
         <Route path="/test" element={<Test />} />
       </Routes>
     </BrowserRouter>
+
   );
 };
 
