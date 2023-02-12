@@ -1,7 +1,7 @@
 import { Navigate } from "react-router-dom";
 import { useCookies } from "react-cookie";
 
-const PrivateRoute = () => {
+const PrivateRoute = ({ auth, children }) => {
   const [cookies, setCookie, removeCookie] = useCookies(["user"]);
 
   if (!cookies.user) {
